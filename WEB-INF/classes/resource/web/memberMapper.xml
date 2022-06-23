@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="/web/memberMapper">
+
+	<!-- 회원가입 -->
+	<insert id="insMember" parameterType="hashmap">		
+		UPDATE tbl_member 
+			set 
+			id     =  '${id}',
+			pw 	   =  '${pw}',
+			name   =  '${name}',
+			email  =  '${email}',
+			tel    =  '${tel}',
+			addr1  =  '${addr1}',
+			addr2  =  '${addr2}',
+			addr3  =  '${addr3}',
+			join_type    =  '${join_type}',
+			drop_type    =  '${drop_type}',
+			personal_yn  =  '${personal_yn}',
+			agree_yn 	 =  '${agree_yn}',
+			submit_date  =   now() + 0
+		WHERE phone  =  '${phone}'
+	</insert>
+	
+	<!-- 회원가입 -->
+	<insert id="insMember_cert" parameterType="hashmap">
+		INSERT INTO tbl_member 
+			(
+ 				 CI, 		 	 DI,	 			gender,	 	  	 gender_cd,			 birth, 		   name,			phone,			
+ 				 agree_yn,	  	 personal_yn,		submit_date
+			 )
+		values
+			(
+		   	   '${CI}',			'${DI}',  	       '${gender}',		'${gender_cd}',     '${birth}', 	  '${name}',     '${phone}',		
+	   	   		'1',			'1',				now()+0  		
+		    )
+	</insert>
+	
+	<!-- 회원가입 - 기업회원 -->
+	<insert id="insMember_corp" parameterType="hashmap">
+		UPDATE tbl_member 
+			set 
+			id    = '${id}',
+			pw 	  = '${pw}',
+			name  = '${name}',
+			corp  = '${corp}',
+			corp_num  = '${corp_num}',
+			corp_file ='${corp_file}',	
+			email = '${email}',
+			phone = '${phone}',
+			tel   = '${tel}',
+			addr1 = '${addr1}',
+			addr2 = '${addr2}',
+			addr3 = '${addr3}',
+			join_type   = '${join_type}',
+			drop_type   = '${drop_type}',
+			submit_date = now() + 0
+		WHERE phone = '${phone}'
+	</insert>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="getChkDup" parameterType="hashmap"  resultType="hashmap">
+		SELECT count(*) as cnt from tbl_member where id = '${user_id}' ORDER BY idx DESC LIMIT 1
+	</select>
+	
+	<!-- 메일 중복 체크 -->
+	<select id="getChkMailDup" parameterType="hashmap"  resultType="hashmap">
+		SELECT count(*) as cnt from tbl_member where email = '${email}' ORDER BY idx DESC LIMIT 1
+	</select>
+	
+	<!-- 로그인 -->
+	<select id="login_check" parameterType="hashmap"  resultType="hashmap">
+		select * from tbl_member where id = '${id}' and pw = '${pw}'
+	</select>
+	
+	<!-- 이메일로 아이디 찾기 -->
+	<select id="getFindId_mail" parameterType="hashmap"  resultType="hashmap">
+		select * from tbl_member where name = '${name}' and email = '${email}'
+	</select>
+	
+	<!-- 핸드폰번호 로 아이디 찾기 -->
+	<select id="getFindId_phone" parameterType="hashmap"  resultType="hashmap">
+		select * from tbl_member where name = '${name}' and phone = '${phone}'
+	</select>
+	
+	<!-- 비밀번호찾기 -> 아이디 입력 -->
+	<select id="getFindPw" parameterType="hashmap"  resultType="hashmap">
+		select * from tbl_member where id = '${id}'
+	</select>
+		
+	<!-- 비밀번호찾기 -> 비밀번호 변경 -->	
+	<select id="getChgPw" parameterType="hashmap"  resultType="hashmap">
+		update tbl_member 
+			set 
+			pw   = '${password2}'
+		where id = '${id}'
+	</select>
+	
+	<!-- As  -->
+	<insert id="insAs" parameterType="hashmap">
+		INSERT INTO tbl_ascs
+			(
+		 	   type,			cate,			 cate_idx,		  title,			contents, 			re_sms,				re_mail, 			doc_type,  	 	   
+		 	   member_idx,		file, 			 file_yn,		  phone, 		    email,				member_id,			answer_yn,		    submit_date
+			 )
+		values
+			(
+			  'A/S문의/신청',		'${cate}', 		'${cate_idx}',	 '${title}',	 	'${contents}',		'${re_sms}',  	    '${re_mail}',       '${doc_type}',      
+			   ${member_idx},	'${file}',    	'${file_yn}',	 '${phone}',		'${email}',	   	 	'${member_id}',		'진행중',				now()+0
+			)
+	</insert>
+	
+	<!-- Cs  -->
+	<insert id="insQna" parameterType="hashmap">
+		INSERT INTO tbl_ascs
+			(
+		 	   type,	      cate,			  type_cd,			pro_cd,				title,				contents, 				re_sms,				re_mail,			       	 	
+		 	   file, 		  phone, 		  file_yn,			email,		    	member_id,			member_idx,				answer_yn,			submit_date
+			 )
+		values
+			(
+			  '${type}',	 '${cate}',	 	 '${type_cd}',	   '${pro_cd}',	  	   '${title}',	 	    '${contents}',			'${re_sms}',  	 	'${re_mail}',	       	
+			  '${file}',     '${phone}',	 '${file_yn}',	   '${email}',	       '${member_id}',		'${member_idx}',		'진행중',  	 		 now()+0
+			)
+	</insert>
+	
+	<!-- A/S 게시물 단일조회 -->
+	<select id="getOneDetail" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_ascs where idx = '${idx}'
+	</select>
+	
+	<!-- C/S 리스트 -->
+	<select id="getCsList" parameterType="hashmap" resultType="hashmap">
+		SELECT bb.* FROM tbl_member aa
+		 	JOIN tbl_ascs bb
+	    ON aa.idx = bb.member_idx
+	    WHERE aa.idx = '${idx}'
+		AND bb.submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+
+	<!-- C/S 리스트 갯수-->
+	<select id="getCsCount" parameterType="hashmap" resultType="hashmap">
+		SELECT count(*) as cnt, aa.idx FROM tbl_member aa
+		 	JOIN tbl_ascs bb
+	    ON aa.idx = bb.member_idx
+	    WHERE aa.idx = '${idx}'
+	</select>
+	
+	<!-- member 단일조회 -->
+	<select id="getMemListone" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM tbl_member where idx = '${idx}'
+	</select>
+	
+	<!-- 로그인시 member 단일조회 -->
+	<select id="getMemListone_id" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM tbl_member where id = '${id}' and drop_type = '2'
+	</select>
+	
+	<!-- 회원정보 변경 -->	
+	<update id="upMember" parameterType="hashmap">
+		UPDATE tbl_member 
+			set 
+			id     =  '${id}',
+			pw     =  '${pw}',
+			name   =  '${name}',
+			birth  =  '${birth}',
+			gender =  '${gender}',
+			email  =  '${email}',
+			phone  =  '${phone}',
+			tel    =  '${tel}',
+			addr1  =  '${addr1}',
+			addr2  =  '${addr2}',
+			addr3  =  '${addr3}',
+			update_date = now() + 0
+		WHERE idx = '${mem_idx}'
+	</update>
+	
+	<!-- 회원정보 변경 -->	
+	<update id="uphackMember" parameterType="hashmap">
+		UPDATE tbl_member 
+			set 
+			drop_why  = '${drop_why}',
+			drop_type = '2',
+			drop_date = now() + 0
+		WHERE idx = '${mem_idx}'
+	</update>
+	
+	<!-- 사업문의 리스트 갯수-->
+	<select id="getBizCount" parameterType="hashmap" resultType="hashmap">
+		SELECT count(*) as cnt, aa.idx FROM tbl_member aa
+		 	JOIN tbl_biz bb
+	    ON aa.idx = bb.member_idx
+	    and aa.idx = '${idx}'
+	</select>
+	
+	<!-- member 단일조회 -->
+	<select id="getMemOne" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM tbl_member where phone = '${phone}'
+	</select>
+</mapper>

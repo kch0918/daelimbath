@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<mappers>
+		<!-- ADMIN -->
+		<mapper resource="resource/admin/mainMapper.xml" />
+		<mapper resource="resource/admin/cateMapper.xml" />
+		<mapper resource="resource/admin/proMapper.xml"  />
+		<mapper resource="resource/admin/userMapper.xml" />
+		<mapper resource="resource/admin/memMapper.xml" />
+		<mapper resource="resource/admin/boardMapper.xml" />
+		<!-- WEB -->
+		<mapper resource="resource/web/productMapper.xml" />
+		<mapper resource="resource/web/memberMapper.xml" />
+		<mapper resource="resource/web/mainMapper.xml" />
+		<mapper resource="resource/web/csMapper.xml" />
+		<mapper resource="resource/web/downMapper.xml" />
+	</mappers>
+</configuration> 

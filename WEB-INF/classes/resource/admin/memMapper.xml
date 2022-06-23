@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="/admin/memMapper">
+	
+	<!-- 회원 리스트 -->
+	<select id="getMemList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_member where drop_type = '1'
+		<if test="!search_name.equals('')">
+			AND id LIKE '%${search_name}%'
+		</if> 
+		<if test="!join_type.equals('')">
+			AND join_type = '${join_type}'
+		</if> 
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 탈퇴회원 리스트 -->
+	<select id="getMemDrophList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_member where drop_type = '2'
+		<if test="!search_name.equals('')">
+			AND id LIKE '%${search_name}%'
+		</if> 
+		<if test="!join_type.equals('')">
+			AND join_type = '${join_type}'
+		</if> 
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 기업회원 승인 리스트 -->
+	<select id="getCorpPerList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_member where join_type = '2'
+		<if test="!search_name.equals('')">
+			AND id LIKE '%${search_name}%'
+		</if> 
+		<if test="!per_type.equals('')">
+			AND per_type = '${per_type}'
+		</if> 
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 회원리스트 카운트 -->
+	<select id="getMemCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_member where drop_type = '1'
+		<if test="!search_name.equals('')">
+			AND id LIKE '%${search_name}%'
+		</if> 
+		<if test="!join_type.equals('')">
+			AND join_type = '${join_type}'
+		</if> 
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 탈퇴 회원리스트 카운트 -->
+	<select id="getMemDropCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_member where drop_type = '2'
+		<if test="!search_name.equals('')">
+			AND id LIKE '%${search_name}%'
+		</if> 
+		<if test="!join_type.equals('')">
+			AND join_type = '${join_type}'
+		</if> 
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 기업회원 승인 리스트 카운트 -->
+	<select id="getCorpPerCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_member where join_type = '2'
+		<if test="!search_name.equals('')">
+			AND id LIKE '%${search_name}%'
+		</if> 
+		<if test="!per_type.equals('')">
+			AND per_type = '${per_type}'
+		</if> 
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 회원리스트 회원탈퇴 -->
+	<update id="delMemList" parameterType="hashmap">
+		update tbl_member set 
+			drop_type   = '2',
+			drop_date   = now() + 0
+		where idx in (${idx})
+	</update> 
+	
+	<!-- 기업회원 승인 -->
+	<update id="getPerType" parameterType="hashmap">
+		update tbl_member set 
+			per_type    = '${per_type}',
+			submit_date = now() + 0
+		where idx in (${idx})
+	</update>
+	
+	<!-- 정책관리 삽입 -->
+	<insert id="insPolicy" parameterType="hashmap">
+		insert INTO tbl_policy 
+			(
+				submit_date,
+		 		terms,
+		 		policy,
+		 		info_agree
+			 )
+		values
+			(
+				NOW()+0,
+				'${terms}',
+				'${policy}',
+				'${info_agree}'
+			)
+	</insert>
+	
+	<!-- 정책관리 수정 -->
+	<update id="upPolicy" parameterType="hashmap">
+		update tbl_policy set 
+			terms      = '${terms}',
+			policy     = '${policy}',
+			info_agree = '${info_agree}'
+		where idx = '1'
+	</update>
+	
+	<!-- 정책관리 카운트 -->
+	<select id="getPolicyCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_policy
+	</select>
+	
+	<!-- 정책관리 조회 -->
+	<select id="getPolicyList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_policy ORDER BY idx DESC LIMIT 1
+	</select>
+	
+	<!-- 회원 단일 조회 -->
+	<select id="getMemberOne" parameterType="hashmap" resultType="hashmap">
+		SELECT * FROM tbl_member where idx = '${idx}'
+	</select>
+
+	<update id="getMemberEdit" parameterType="hashmap">
+		UPDATE tbl_member set
+			join_type =  '${join_type}',
+			per_type  =  '${per_type}',
+			pw   	  =  '${pw}',
+			corp  	  =  '${corp}',
+			email     =  '${email}',
+			tel 	  =  '${tel}',
+			addr1 	  =  '${addr1}',
+			addr2     =  '${addr2}',
+			addr3     =  '${addr3}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<select id="getTermsAllList" parameterType="hashmap" resultType="hashmap">
+		SELECT submit_date, terms FROM tbl_policy ORDER BY idx DESC
+	</select>
+	
+	<select id="getPolicyAllList" parameterType="hashmap" resultType="hashmap">
+		SELECT submit_date, policy FROM tbl_policy ORDER BY idx DESC
+	</select>
+	
+	<select id="getInfoAgreeAllList" parameterType="hashmap" resultType="hashmap">
+		SELECT submit_date, info_agree FROM tbl_policy ORDER BY idx DESC
+	</select>
+	
+</mapper>

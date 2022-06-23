@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="/admin/boardMapper">
+	<!-- 카탈로그 리스트 -->
+	<select id="getCataList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where type = '1'
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 카탈로그 카운트 -->
+	<select id="getCataCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_down where type = '1'
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 상태 변경 -->
+	<update id="ChangeStatus_cata" parameterType="hashmap">
+		UPDATE tbl_down
+		set
+			expo_yn = '${act}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 카탈로그 등록 -->
+	<insert id="insCata" parameterType="hashmap">
+		INSERT INTO tbl_down 
+			(
+			   main_title,		 	 expo_yn, 				 type,				  cata_thumb, 	 	 
+			   cata_file, 	 		 cata_thumb_ori, 	 	 cata_file_ori,       submit_date,
+			   cata_cate
+			 )
+		values
+			(
+			  '${main_title}',		 '${expo_yn}',     		'1',				  '${cata_thumb}', 	 
+			  '${cata_file}',	 	 '${cata_thumb_ori}', 	'${cata_file_ori}',    now() + 0,
+			  '${cata_cate}'
+			 )
+	</insert>
+	
+	<!-- 카탈로그 수정 -->
+	<update id="upCata" parameterType="hashmap">
+		UPDATE tbl_down 
+		set
+			main_title 	 	 = 	 '${main_title}',
+			expo_yn   	 	 = 	 '${expo_yn}',
+			cata_thumb 	 	 = 	 '${cata_thumb}',
+			cata_file 		 = 	 '${cata_file}',
+			cata_thumb_ori 	 = 	 '${cata_thumb_ori}',
+			cata_file_ori 	 = 	 '${cata_file_ori}',
+			cata_cate 		 =	 '${cata_cate}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 카탈로그 삭제 -->
+	<delete id="delCataList" parameterType="hashmap">
+		delete from tbl_down where idx in (${idx})
+	</delete>
+	
+	<!-- 카탈로그 파일 단일조회 -->
+	<select id="getOneFileList_cata" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where idx = '${idx}'
+	</select>
+	
+	<!-- 카탈로그 단일조회 -->
+	<select id="getOneCataList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where idx = '${idx}'
+	</select>
+	
+	<!-- 인증서 리스트 -->
+	<select id="getCertiList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where type = '2'
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 인증서 카운트 -->
+	<select id="getCertiCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_down where type = '2'
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 상태 변경 -->
+	<update id="ChangeStatus_certi" parameterType="hashmap">
+		UPDATE tbl_down
+		set
+			expo_yn = '${act}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 인증서 등록 -->
+	<insert id="insCerti" parameterType="hashmap">
+		INSERT INTO tbl_down 
+			(
+			   main_title,		 	 expo_yn, 				 type,				  cata_thumb, 	 	 
+			   cata_file, 	 		 cata_thumb_ori, 	 	 cata_file_ori,       submit_date,
+			   cata_cate
+			 )
+		values
+			(
+			  '${main_title}',		 '${expo_yn}',     		'2',				  '${cata_thumb}', 	 
+			  '${cata_file}',	 	 '${cata_thumb_ori}', 	'${cata_file_ori}',    now() + 0,
+			  '${cata_cate}'
+			 )
+	</insert>
+	
+	<!-- 인증서 수정 -->
+	<update id="upCerti" parameterType="hashmap">
+		UPDATE tbl_down 
+		set
+			main_title 	 	 = 	 '${main_title}',
+			expo_yn   	 	 = 	 '${expo_yn}',
+			cata_thumb 	 	 = 	 '${cata_thumb}',
+			cata_file 		 = 	 '${cata_file}',
+			cata_thumb_ori 	 = 	 '${cata_thumb_ori}',
+			cata_file_ori 	 = 	 '${cata_file_ori}',
+			cata_cate 	 	 = 	 '${cata_cate}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 인증서 삭제 -->
+	<delete id="delCertiList" parameterType="hashmap">
+		delete from tbl_down where idx in (${idx})
+	</delete>
+	
+	<!-- 인증서 파일 단일조회 -->
+	<select id="getOneFileList_certi" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where idx = '${idx}'
+	</select>
+	
+	<!-- 인증서 단일조회 -->
+	<select id="getOneCertiList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where idx = '${idx}'
+	</select>
+	
+	<!-- 브로셔 리스트 -->
+	<select id="getBroList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where type = '3'
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 브로셔 카운트 -->
+	<select id="getBroCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_down where type = '3'
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 상태 변경 -->
+	<update id="ChangeStatus_bro" parameterType="hashmap">
+		UPDATE tbl_down
+		set
+			expo_yn = '${act}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 브로셔 등록 -->
+	<insert id="insBro" parameterType="hashmap">
+		INSERT INTO tbl_down 
+			(
+			   main_title,		 	 expo_yn, 				 type,				  cata_thumb, 	 	 
+			   cata_file, 	 		 cata_thumb_ori, 	 	 cata_file_ori,       submit_date,
+			   cata_cate
+			 )
+		values
+			(
+			  '${main_title}',		 '${expo_yn}',     		'3',				  '${cata_thumb}', 	 
+			  '${cata_file}',	 	 '${cata_thumb_ori}', 	'${cata_file_ori}',    now() + 0,
+			  '${cata_cate}'
+			 )
+	</insert>
+	
+	<!-- 브로셔 수정 -->
+	<update id="upBro" parameterType="hashmap">
+		UPDATE tbl_down 
+		set
+			main_title 	 	 = 	 '${main_title}',
+			expo_yn   	 	 = 	 '${expo_yn}',
+			cata_thumb 	 	 = 	 '${cata_thumb}',
+			cata_file 		 = 	 '${cata_file}',
+			cata_thumb_ori 	 = 	 '${cata_thumb_ori}',
+			cata_file_ori 	 = 	 '${cata_file_ori}',
+			cata_cate 		 =	 '${cata_cate}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 브로셔 삭제 -->
+	<delete id="delBroList" parameterType="hashmap">
+		delete from tbl_down where idx in (${idx})
+	</delete>
+	
+	<!-- 브로셔 파일 단일조회 -->
+	<select id="getOneFileList_bro" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where idx = '${idx}'
+	</select>
+	
+	<!-- 브로셔 단일조회 -->
+	<select id="getOneBroList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where idx = '${idx}'
+	</select>
+	
+	<!-- 기타 리스트 -->
+	<select id="getEtcList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where type = '4'
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 기타 카운트 -->
+	<select id="getEtcCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_down where type = '4'
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 상태 변경 -->
+	<update id="ChangeStatus_etc" parameterType="hashmap">
+		UPDATE tbl_down
+		set
+			expo_yn = '${act}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 기타 등록 -->
+	<insert id="insEtc" parameterType="hashmap">
+		INSERT INTO tbl_down 
+			(
+			   main_title,		 	 expo_yn, 				 type,				  cata_thumb, 	 	 
+			   cata_file, 	 		 cata_thumb_ori, 	 	 cata_file_ori,       submit_date,
+			   cata_cate
+			 )
+		values
+			(
+			  '${main_title}',		 '${expo_yn}',     		'4',				  '${cata_thumb}', 	 
+			  '${cata_file}',	 	 '${cata_thumb_ori}', 	'${cata_file_ori}',    now() + 0,
+			  '${cata_cate}'
+			 )
+	</insert>
+	
+	<!-- 기타 수정 -->
+	<update id="upEtc" parameterType="hashmap">
+		UPDATE tbl_down 
+		set
+			main_title 	 	 = 	 '${main_title}',
+			expo_yn   	 	 = 	 '${expo_yn}',
+			cata_thumb 	 	 = 	 '${cata_thumb}',
+			cata_file 		 = 	 '${cata_file}',
+			cata_thumb_ori 	 = 	 '${cata_thumb_ori}',
+			cata_file_ori 	 = 	 '${cata_file_ori}',
+			cata_cate 		 = 	 '${cata_cate}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 기타 삭제 -->
+	<delete id="delEtcList" parameterType="hashmap">
+		delete from tbl_down where idx in (${idx})
+	</delete>
+	
+	<!-- 기타 파일 단일조회 -->
+	<select id="getOneFileList_etc" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where idx = '${idx}'
+	</select>
+	
+	<!-- 기타 단일조회 -->
+	<select id="getOneEtcList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_down where idx = '${idx}'
+	</select>
+	
+	<!-- as가이드 파일 단일 조회 -->
+	<select id="getOneFileList_as" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_as_guide where idx = '${idx}'
+	</select>
+	
+	<!-- as가이드 수정 -->
+	<update id="upAs" parameterType="hashmap">
+		UPDATE tbl_as_guide 
+		set
+			title 	 	 = 	 '${title}',
+			expo_yn   	 = 	 '${expo_yn}',
+			imbecode 	 = 	 '${imbecode}',
+			thumb 	 	 = 	 '${thumb}',
+			thumb_ori 	 = 	 '${thumb_ori}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- as가이드 등록 -->
+	<insert id="insAs" parameterType="hashmap">
+		INSERT INTO tbl_as_guide 
+			(
+			   title,		 	 expo_yn, 				 thumb, 	 	 
+			   imbecode, 	 		 thumb_ori, 	 	 submit_date
+			 )
+		values
+			(
+			  '${title}',		 '${expo_yn}',     		'${thumb}', 	 
+			  '${imbecode}',	 	 '${thumb_ori}', 	now() + 0
+			 )
+	</insert>
+	
+	<!-- as가이드 리스트 -->
+	<select id="getAsGuideList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_as_guide WHERE 1=1
+		<if test="!search_name.equals('')">
+			AND title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- as가이드 카운트 -->
+	<select id="getAsGuideCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_as_guide WHERE 1=1
+		<if test="!search_name.equals('')">
+			AND title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- as가이드 단일조회 -->
+	<select id="getOneAsGuideList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_as_guide where idx = '${idx}'
+	</select>
+	
+	<!-- 기타 삭제 -->
+	<delete id="delAsGuideList" parameterType="hashmap">
+		delete from tbl_as_guide where idx in (${idx})
+	</delete>
+	
+	<!-- as 가이드 상태 변경 -->
+	<update id="changeExpo_asGuide" parameterType="hashmap">
+		UPDATE tbl_as_guide
+		set
+			expo_yn = '${act}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	
+<!--==========================================================욕실리모델링===============================================================-->
+
+	<select id="getOneFileList_bathremodel" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_bathremodel where idx = '${idx}'
+	</select>
+	
+	<update id="upbathremodel" parameterType="hashmap">
+		UPDATE tbl_bathremodel 
+		set
+			title 	 	 = 	 '${title}',
+			thumb 	 	 = 	 '${thumb}',
+			thumb_ori 	 = 	 '${thumb_ori}',
+			imbecode 	 = 	 '${imbecode}',
+			list_expo_yn = 	 '${list_expo_yn}',
+			idx_expo_yn  = 	 '${idx_expo_yn}',
+			keywd   	 = 	 '${keywd}',
+			userid   	 = 	 '${userid}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<insert id="insbathremodel" parameterType="hashmap">
+		INSERT INTO tbl_bathremodel 
+			(
+			   title,		 	 thumb, 	 	 thumb_ori,
+			   imbecode,		 submit_date,	 list_expo_yn,
+			   idx_expo_yn,		 keywd,			 userid
+			 )
+		values
+			(
+			  '${title}',		 '${thumb}', 	  '${thumb_ori}',
+			  '${imbecode}',	 now() + 0, 	  '${list_expo_yn}',
+			  '${idx_expo_yn}',	 '${keywd}', 	  '${userid}'
+			 )
+	</insert>
+	
+	<select id="getbathremodelList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_bathremodel WHERE 1=1
+		<if test="!search_name.equals('')">
+			AND title LIKE '%${search_name}%'
+		</if> 
+		<if test="!list_expo_yn.equals('')">
+			AND list_expo_yn = '${list_expo_yn}'
+		</if>
+		<if test="!idx_expo_yn.equals('')">
+			AND idx_expo_yn = '${idx_expo_yn}'
+		</if>
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<select id="getbathremodelCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_bathremodel WHERE 1=1
+		<if test="!search_name.equals('')">
+			AND title LIKE '%${search_name}%'
+		</if> 
+		<if test="!list_expo_yn.equals('')">
+			AND list_expo_yn = '${list_expo_yn}'
+		</if>
+		<if test="!idx_expo_yn.equals('')">
+			AND idx_expo_yn = '${idx_expo_yn}'
+		</if>
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<select id="getOnebathremodelList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_bathremodel where idx = '${idx}'
+	</select>
+	
+	<delete id="delBathRemodelList" parameterType="hashmap">
+		delete from tbl_bathremodel where idx in (${idx})
+	</delete>
+	
+	<update id="changeExpo_bathremodel_list" parameterType="hashmap">
+		UPDATE tbl_bathremodel
+		set
+			list_expo_yn = '${act}'
+		where
+			idx = '${idx}'
+	</update>
+
+	<update id="changeExpo_bathremodel_idx" parameterType="hashmap">
+		UPDATE tbl_bathremodel
+		set
+			idx_expo_yn = '${act}'
+		where
+			idx = '${idx}'
+	</update>
+
+
+
+	
+</mapper>

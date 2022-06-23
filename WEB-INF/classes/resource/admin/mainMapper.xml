@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="/admin/mainMapper">
+
+	<!-- 메인베너 리스트 -->
+	<select id="getMainBannerList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_mbanner where 1
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 메인베너 카운트 -->
+	<select id="getMainBannerCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_mbanner where 1
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 메인베너 등록 -->
+	<insert id="insMainBanner" parameterType="hashmap">
+		INSERT INTO tbl_mbanner 
+			(
+		 	   cate_nm,			  main_title,		 sub_title, 		      conts,					 expo_yn, 		   	  period_yn, 		  start_date,	   		 
+		 	   finish_date,		  mbanner_pc, 	 	 mbanner_mo,			  mbanner_pc_ori, 		  	 mbanner_mo_ori,	  link,			      blank,					 submit_date
+			 )
+		values
+			(
+			  '${cate_nm}', 	 '${main_title}',	 '${sub_title}',	 	  '${conts}',				'${expo_yn}',     	 '${period_yn}',      '${start_date}',	  		'${finish_date}',
+			  '${mbanner_pc}', 	 '${mbanner_mo}',	 '${mbanner_pc_ori}', 	  '${mbanner_mo_ori}',		'${link}',			 '${blank}',		   now() + 0
+			 )
+	</insert>
+	
+	<!-- 메인베너 수정 -->
+	<update id="upMainBanner" parameterType="hashmap">
+		UPDATE tbl_mbanner 
+		set
+			cate_nm 	 	 = 	 '${cate_nm}',
+			main_title 	 	 = 	 '${sub_title}',
+			sub_title 	 	 = 	 '${sub_title}',
+			conts 	 	 	 = 	 '${conts}',
+			expo_yn   	 	 = 	 '${expo_yn}',
+			period_yn 	 	 = 	 '${period_yn}',
+			start_date	     =   '${start_date}',
+			finish_date 	 = 	 '${finish_date}',
+			mbanner_pc 	 	 = 	 '${mbanner_pc}',
+			mbanner_mo 		 = 	 '${mbanner_mo}',
+			mbanner_pc_ori 	 = 	 '${mbanner_pc_ori}',
+			mbanner_mo_ori 	 = 	 '${mbanner_mo_ori}',
+			link  	  	 	 = 	 '${link}', 
+			blank  	  	 	 = 	 '${blank}' 
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 메인배너 삭제 -->
+	<delete id="delMainBannerList" parameterType="hashmap">
+		delete from tbl_mbanner where idx in (${idx})
+	</delete>
+	
+	<!-- 메인베너 파일 단일조회 -->
+	<select id="getOneFileList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_mbanner where idx = '${idx}'
+	</select>
+	
+	<!-- 단일조회 -->
+	<select id="getOneMainBannerList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_mbanner where idx = '${idx}'
+	</select>
+	
+	<!-- 상태 변경 -->
+	<update id="ChangeStatus" parameterType="hashmap">
+		UPDATE tbl_mbanner
+		set
+			expo_yn = '${act}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 브랜드 배너 등록 -->
+	<insert id="insBrandBanner" parameterType="hashmap">
+		INSERT INTO tbl_brand_banner 
+			(
+		 	   main_title1,		  main_title2,	  		main_title3, 	  			 main_title4, 				 contents1, 				contents2,	    			 contents3, 				 
+		 	   contents4, 	 	  link1,		  		link2, 	  	  				 link3,	 	  				 link4,				 		banner_img1,	       		 banner_img2,	     
+		 	   banner_img3,   	  banner_img4,	  		banner_img_ori1.  		 	 banner_img_ori2, 		 	 banner_img_ori3, 		 	banner_img_ori4
+			 )
+		values
+			(
+			  '${main_title1}',   '${main_title2}',	 	'${main_title3}',	  	 	'${main_title4}',     		'${contents1}',    			'${contents2}',				'${contents3}',
+			  '${contents4}', 	  '${link1}',			'${link2}', 			    '${link3}',					'${link4}',					'${banner_img1}',			'${banner_img2}',	
+			  '${banner_img3}',	  '${banner_img4}',	 	'${banner_img_ori1}',		'${banner_img_ori2}',		'${banner_img_ori3}',		'${banner_img_ori4}',	
+			  	
+			 )
+	</insert>
+	
+	<!-- 브랜드 베너 수정 -->
+	<update id="upBrandBanner" parameterType="hashmap">
+		UPDATE tbl_brand_banner 
+		set
+			main_title1  	 = 	 '${main_title1}',
+			main_title2  	 = 	 '${main_title2}',
+			main_title3 	 = 	 '${main_title3}',
+			main_title4 	 =	 '${main_title4}',
+			contents1 	 	 = 	 '${contents1}',
+			contents2	 	 =   '${contents2}',
+			contents3 	 	 = 	 '${contents3}',
+			contents4	 	 =   '${contents4}',
+			link1 		 	 = 	 '${link1}',
+			link2 		 	 = 	 '${link2}',
+			link3  			 = 	 '${link3}',
+			link4 		 	 = 	 '${link4}',
+			banner_img1  	 = 	 '${banner_img1}',
+			banner_img2  	 = 	 '${banner_img2}',
+			banner_img3  	 = 	 '${banner_img3}',
+			banner_img4  	 = 	 '${banner_img4}',
+			banner_img_ori1  =   '${banner_img_ori1}',
+			banner_img_ori2  =   '${banner_img_ori2}',
+			banner_img_ori3  =   '${banner_img_ori3}',
+			banner_img_ori4  =   '${banner_img_ori4}'
+		where
+			idx = '1'
+	</update>
+	
+	<!-- 메인베너 파일 단일조회 -->
+	<select id="getOneBrandFileList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_brand_banner where idx = '1'
+	</select>
+	
+	<!-- 단일조회 -->
+	<select id="getOneBrandBannerList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_brand_banner where idx = '1'
+	</select>
+	
+	<!-- 랜드마크 수정 -->
+	<update id="upLandMark" parameterType="hashmap">
+		UPDATE tbl_land_banner 
+		set
+			land_nm1  	 = 	 '${land_nm1}',
+			land_nm2  	 = 	 '${land_nm2}',
+			land_nm3     = 	 '${land_nm3}',
+			land_nm4 	 = 	 '${land_nm4}',
+			contents1 	 = 	 '${contents1}',
+			contents2	 =   '${contents2}',
+			contents3 	 = 	 '${contents3}',
+			contents4	 =   '${contents4}',
+			link_btn1 	 = 	 '${link_btn1}',
+			link_btn2 	 = 	 '${link_btn2}',
+			link_btn3  	 = 	 '${link_btn3}',
+			link_btn4 	 = 	 '${link_btn4}',
+			link_pro1 	 = 	 '${link_pro1}',
+			link_pro2 	 = 	 '${link_pro2}',
+			link_pro3  	 = 	 '${link_pro3}',
+			link_pro4 	 = 	 '${link_pro4}',
+			landmark_file_pc1  	   =  '${landmark_file_pc1}',
+			landmark_file_pc2  	   =  '${landmark_file_pc2}',
+			landmark_file_pc3  	   =  '${landmark_file_pc3}',
+			landmark_file_pc4  	   =  '${landmark_file_pc4}',
+			landmark_file_pc_ori1  =  '${landmark_file_pc_ori1}',
+			landmark_file_pc_ori2  =  '${landmark_file_pc_ori2}',
+			landmark_file_pc_ori3  =  '${landmark_file_pc_ori3}',
+			landmark_file_pc_ori4  =  '${landmark_file_pc_ori4}',
+			landmark_file_mo1  	   =  '${landmark_file_mo1}',
+			landmark_file_mo2  	   =  '${landmark_file_mo2}',
+			landmark_file_mo3  	   =  '${landmark_file_mo3}',
+			landmark_file_mo4      =  '${landmark_file_mo4}',
+			landmark_file_mo_ori1  =  '${landmark_file_mo_ori1}',
+			landmark_file_mo_ori2  =  '${landmark_file_mo_ori2}',
+			landmark_file_mo_ori3  =  '${landmark_file_mo_ori3}',
+			landmark_file_mo_ori4  =  '${landmark_file_mo_ori4}',
+			landmark_logo1  	   =  '${landmark_logo1}',
+			landmark_logo2  	   =  '${landmark_logo2}',
+			landmark_logo3  	   =  '${landmark_logo3}',
+			landmark_logo4  	   =  '${landmark_logo4}'
+		where
+			idx = '1'
+	</update>
+	
+	<!-- 랜드마크 파일 단일조회 -->
+	<select id="getOneLandMarkFileList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_land_banner where idx = '1'
+	</select>
+	
+	<!-- 랜드마크 단일조회 -->
+	<select id="getOneLandMarkList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_land_banner where idx = '1'
+	</select>
+	
+	<!-- 매거진 베너 수정 -->
+	<update id="upMagazine" parameterType="hashmap">
+		UPDATE tbl_magazine_banner 
+		set
+			main_title1  = 	  '${main_title1}',
+			main_title2  = 	  '${main_title2}',
+			main_title3  = 	  '${main_title3}',
+			link1 		 = 	  '${link1}',
+			link2 		 = 	  '${link2}',
+			link3  		 = 	  '${link3}',
+			magazine_file1 		    = 	'${magazine_file1}',
+			magazine_file2  	    = 	'${magazine_file2}',
+			magazine_file3  	    = 	'${magazine_file3}',
+			magazine_mo_file1 	    = 	'${magazine_mo_file1}',
+			magazine_mo_file2  	    = 	'${magazine_mo_file2}',
+			magazine_mo_file3  	    = 	'${magazine_mo_file3}',
+			magazine_file_ori1      = 	'${magazine_file_ori1}',
+			magazine_file_ori2      = 	'${magazine_file_ori2}',
+			magazine_file_ori3      = 	'${magazine_file_ori3}',
+			magazine_mo_file_ori1   = 	'${magazine_mo_file_ori1}',
+			magazine_mo_file_ori2   = 	'${magazine_mo_file_ori2}',
+			magazine_mo_file_ori3   = 	'${magazine_mo_file_ori3}'
+		where
+			idx = '1'
+	</update>
+	
+	<!-- 매거진 파일 단일조회 -->
+	<select id="getMagazineFileList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_magazine_banner where idx = '1'
+	</select>
+	
+	<!-- 매거진 -->
+	<select id="getOneMagazineList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_magazine_banner where idx = '1'
+	</select>
+	
+	<!-- 공지사항 슬라이트 리스트 -->
+	<select id="getNoticeList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_notice_banner where 1
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 공지사항 슬라이트 카운트 -->
+	<select id="getNoticeCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_notice_banner where 1
+		<if test="!search_name.equals('')">
+			AND main_title LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 메인배너 삭제 -->
+	<delete id="delNoticeList" parameterType="hashmap">
+		delete from tbl_notice_banner where idx in (${idx})
+	</delete>
+	
+	<!-- 상태 변경 -->
+	<update id="changeExpo_notice" parameterType="hashmap">
+		UPDATE tbl_notice_banner
+		set
+			expo_yn = '${act}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 공지사항 슬라이드 등록 -->
+	<insert id="insNotice" parameterType="hashmap">
+		INSERT INTO tbl_notice_banner 
+			(
+		 	   main_title,		 sub_title, 		 expo_yn, 		 	   period_yn, 		    start_date,	   		 finish_date, 				 
+		 	   file_pc, 	 	 file_mo,			 file_pc_ori, 	  	   file_mo_ori,	 	    link,			     blank,					 submit_date
+			 )
+		values
+			(
+		      '${main_title}',	 '${sub_title}',	 '${expo_yn}',        '${period_yn}',    	'${start_date}',	'${finish_date}',
+			  '${file_pc}', 	 '${file_mo}',	     '${file_pc_ori}', 	  '${file_mo_ori}',		'${link}',			'${blank}',				 now() + 0
+			 )
+	</insert>
+	
+	<!-- 공지사항 슬라이드 수정 -->
+	<update id="upNotice" parameterType="hashmap">
+		UPDATE tbl_notice_banner 
+		set
+			main_title 	 = 	 '${main_title}',
+			sub_title 	 = 	 '${sub_title}',
+			expo_yn   	 = 	 '${expo_yn}',
+			period_yn 	 = 	 '${period_yn}',
+			start_date	 =   '${start_date}',
+			finish_date  = 	 '${finish_date}',
+			file_pc 	 = 	 '${file_pc}',
+			file_mo 	 = 	 '${file_mo}',
+			file_pc_ori  = 	 '${file_pc_ori}',
+			file_mo_ori  = 	 '${file_mo_ori}',
+			blank  	  	 = 	 '${blank}', 
+			link  	  	 = 	 '${link}' 
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 단일조회 -->
+	<select id="getOneFileList_notice" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_notice_banner where idx = '${idx}'
+	</select>
+	
+	<!-- 단일조회 -->
+	<select id="getNoticebannerList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_notice_banner where idx = '${idx}'
+	</select>
+	
+	<!-- 베스트 리스트 -->
+	<select id="getBestList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_special where 1
+		<if test="!search_name.equals('')">
+			AND pro_nm LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 베스트 카운트 -->
+	<select id="getBestCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_special where 1
+		<if test="!search_name.equals('')">
+			AND pro_nm LIKE '%${search_name}%'
+		</if> 
+		<if test="!expo_yn.equals('')">
+			AND expo_yn = '${expo_yn}'
+		</if>
+			AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 상태 변경 -->
+	<update id="ChangeStatus_best" parameterType="hashmap">
+		UPDATE tbl_special
+		set
+			expo_yn = '${act}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 베스트 등록 -->
+	<insert id="insBest" parameterType="hashmap">
+		INSERT INTO tbl_special 
+			(
+	 		   pro_nm,		   pro_key, 			 	expo_yn, 		   period_yn, 		  	    start_date,	   		 finish_date, 				 
+	 	  	   pro_img, 	   pro_img_mo,		 	pro_img_ori, 	  	   pro_img_mo_ori,	 	    link,			     blank,					 submit_date
+			 )
+		values
+			(
+		      '${pro_nm}',	  '${pro_key}',	 		'${expo_yn}',         '${period_yn}',    		'${start_date}',	'${finish_date}',
+			  '${pro_img}',   '${pro_img_mo}',		'${pro_img_ori}', 	  '${pro_img_mo_ori}',		'${link}',			'${blank}',				 now() + 0
+			 )
+	</insert>
+	
+	<!-- 베스트 수정 -->
+	<update id="upBest" parameterType="hashmap">
+		UPDATE tbl_special 
+		set
+			pro_nm	 	 	= 	 '${pro_nm}',
+			pro_key1	  	= 	 '${pro_key1}',
+			pro_key2	  	= 	 '${pro_key2}',
+			pro_key3	  	= 	 '${pro_key3}',
+			expo_yn   	 	= 	 '${expo_yn}',
+			period_yn 	 	= 	 '${period_yn}',
+			start_date	 	=    '${start_date}',
+			finish_date  	= 	 '${finish_date}',
+			pro_img 		= 	 '${pro_img}',
+			pro_img_mo 	 	= 	 '${pro_img_mo}',
+			pro_img_ori 	= 	 '${pro_img_ori}',
+			pro_img_mo_ori  = 	 '${pro_img_mo_ori}',
+			blank  	  	 	= 	 '${blank}', 
+			link  	  	 	= 	 '${link}' 
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 베스트 삭제 -->
+	<delete id="delBestList" parameterType="hashmap">
+		delete from tbl_notice_banner where idx in (${idx})
+	</delete>
+	
+	<!-- 베스트 파일 단일조회 -->
+	<select id="getOneFileList_best" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_special where idx = '${idx}'
+	</select>
+	
+	<!-- 베스트 단일조회 -->
+	<select id="getOneBestList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_special where idx = '${idx}'
+	</select>
+</mapper>

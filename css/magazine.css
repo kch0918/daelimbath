@@ -1,0 +1,720 @@
+/*magazine*/
+.product .prod_nm.align_center {
+	text-align: center;
+}
+.magazine .section01  .prod_nm.align_center {
+	margin-top: 137px;
+}
+.magazine .sect_sns {
+	border-top: 1px solid #e3e3e3;
+	margin-top: 60px;
+}
+.technology .sect_sns .prod_nm {
+	margin-top: 75px;
+}
+
+.sns_ul {
+	display: flex;
+    justify-content: flex-start;  
+	flex-flow: wrap;
+}
+.sns_ul li {
+	width: 19.37%;
+	margin-right: 0.78%;
+}
+.sns_ul li:nth-child(5n) {
+	margin-right: 0;
+}
+.product .sns_img {
+	position: relative;
+	border-radius: 15px; 
+	overflow: hidden;
+}
+.product .sns_ico {
+	position: absolute;
+	right: 20px;
+	top: 20px; 
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	background: #fff;
+	border-radius: 100%;
+	font-size:0;
+}
+.product .sns_ico:after{
+	display:inline-block; 
+	height:100%; 
+	content:""; 
+	vertical-align:middle;
+}
+
+.sns_txt .sub_txt {
+	 font-size: 16px;
+ 	 font-weight: 600;
+    color: rgb(52, 52, 52);
+    line-height: 1;
+    padding: 23px 0 10px;
+    display:block;
+}
+.sns_txt .main_txt {
+	display:block;
+	 font-size: 22px;
+  font-weight: 500;
+}
+
+.align_c.btn_view {
+	margin: 0 auto;
+}
+
+.sect_sns .dw_bt {
+	margin: 70px 0 110px;
+}
+.magazine .sec_03 {
+	position: relative;
+}
+.magazine .sec_03:before {
+	position: absolute;	
+	background: rgba(255,255,255,0.2);
+	content: '';
+	width: 1px;
+	height: calc(100% - 42px);	
+	bottom: 1px;
+	right: 40px;	
+    z-index: 9;
+}
+.mg_bg {
+	position:relative;
+}
+.mg_bg:before, 
+.mg_bg:after {
+	position: absolute;	
+	background: rgba(255,255,255,0.2);
+	content: '';
+}
+.mg_bg:before{
+	top:0;
+	left: 40px;
+	width: 1px;
+	height: calc(100% - 40px);	
+}
+.mg_bg:after {
+	left: 0;
+	bottom:40px;
+	height: 1px;
+	width: calc(100% - 40px);
+}
+.magazine .mg_txt {
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width:100%;
+	height: calc(100% - 80px);
+	transform: translateY(-50%);
+	display: inline-block;
+	border-top: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+}
+.magazine .mg_txt .main_txt {
+	font-size: 46px;
+  	font-weight: 500;
+  	display: block;
+  	margin-bottom: 58px;
+  	color: #fff;
+	text-align: center;  
+	line-height: 1.28;
+  	letter-spacing: -2.3px;
+}
+.magazine .mg_txt .sub_txt {
+	font-size: 18px;	  
+	color: #fff;
+  	display: block;
+	text-align: center;
+}
+.product .section01.sect_video .prod_nm .txt_main {
+	padding-bottom: 25px;	
+}
+
+.sect_video .video_bx {
+    max-width: 1454px;
+    margin: 0 auto;
+}
+.sect_video .video_top {
+	border-radius: 25px;
+}
+.sect_video .thum_bx {
+	margin-top: 14px;
+	margin-bottom: 72px;
+	display: flex;
+	justify-content: space-between;
+}
+.sect_video .thum_img {
+	position: relative;
+  	border-radius: 15px;
+  	overflow: hidden;
+  	width: 19.26%;
+}
+.sect_video .thum_txt {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	text-align: center;
+	display: flex;
+    justify-content: center;
+	align-items: center;
+	font-size: 20px;
+  	font-weight: 500;
+  	color: #fff;
+  	left: 0;
+  	top: 0;
+  	cursor: pointer;
+}
+.magazine .section01.sect_video .prod_nm.align_center {
+	margin-top: 75px;
+}
+.sect_video .video_txt {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	height: 45px;
+	width: 100%;
+	padding: 0 47px;
+	background: rgba(0, 0, 0, 0.4);
+	display: flex;
+    justify-content: space-between;
+}
+.sect_video .video_txt span {
+	line-height: 45px;
+	color: #fff;
+	font-size: 20px;
+	font-weight: 500;
+}
+.bot_banner {
+	border-top: 1px solid rgba(192, 192, 192, 0.4);
+}
+
+.banner_wrap {
+	display: flex;
+	height: 330px;
+}
+
+.banner_bx {
+    width: 50%;
+	display: flex;
+    align-items: center;
+}
+.banner_bx > div {
+	width: calc(100% - 120px);
+	display: flex;
+	justify-content: space-between;
+}
+.banner_bx + .banner_bx {
+	justify-content: flex-end;
+    border-left: 1px solid rgba(192, 192, 192, 0.4);
+}
+.banner_txt .main_txt {
+ 	font-size: 46px;
+  font-weight: 500;  
+  color: rgb(0, 0, 0);
+  display: block;
+  line-height: 1;
+  margin-bottom: 40px;
+}
+.banner_txt .sub_txt {
+	font-size: 18px;
+	color: rgb(0, 0, 0);
+}
+.banner_link.line_wrap .more_view {
+	color: #000;
+	opacity: 1;
+}
+.banner_link.line_wrap .more_view:before {
+	background: #000;
+}
+.banner_bx.all_wid {
+	width: 100%;
+}
+
+/*sns*/
+.technology.sns .prod_nm {
+    margin-top: 130px;
+}
+.technology.sns .section01 .prod_nm {	
+    padding-bottom: 48px;
+}
+.sns .sns_ul li {
+	margin-bottom: 61px;
+}
+.sns .paging {
+	margin-top: 30px;
+}
+.banner_bx.all_wid {
+    justify-content: center;
+}
+.banner_bx.all_wid > div {
+    width: 100%;
+}
+
+
+/* video */
+.video .sns_ul li {
+	width: 32.57%;
+	margin-right: 17px;
+}
+.video .sns_ul .sns_img > img {
+	width: 100%;
+}
+.video .sns_ul li:nth-child(5n) {
+	margin-right: 17px;
+}
+.video .sns_ul li:nth-child(3n) {
+	margin-right: 0;
+}
+
+
+/* ir */
+.product.ir .section01 .prod_nm .txt_main {
+	padding-bottom: 0;
+}
+.technology.ir .section01 .prod_nm {
+	padding-bottom: 70px;
+}
+.ir_tab {
+	font-size: 0;
+	text-align: center;
+}
+.ir_tab .tab_txt {
+	font-size: 22px;
+	font-weight: bold;
+	color: #000;
+	opacity: 0.5;
+	cursor: pointer;
+	display: inline-block;
+}
+.ir_tab .tab_txt + .tab_txt{
+	margin-left: 30px;
+} 
+.ir_tab .tab_txt.on {
+	opacity: 1;
+}
+.ir_tab .num {
+	margin-top: -5px;
+	font-size: 14px;
+    vertical-align: top;
+}
+/* 주가정보 */
+.ir_wrap .stock {
+	margin-top: 105px;
+}
+.ir_info {
+	display: flex;
+	align-items: flex-end;
+}
+.ir_table .number {
+	font-size: 46px;
+	font-weight: bold;
+	color: rgb(50, 106, 255);
+	margin-right: 30px;
+	line-height: 1;
+}
+.ir_table .number img {
+	margin-right: 13px;
+}
+.ir_info .sub_num {
+	display: flex;
+}
+.ir_info .sub_num > div + div {
+	margin-left: 23px;
+}
+.ir_info .sub_num > div {
+	position: relative;
+	display: flex;
+}
+.ir_info .sub_num > div:before {
+	position: absolute;
+	left: -11px;
+	top: 0;
+	width: 1px;
+	height: 18px;
+	background: #ccc;
+	content: '';
+}
+.ir_info .sub_num > div:first-child:before {
+	display: none;
+}
+.ir_info .tit {
+	font-size: 16px;
+  	font-weight: bold;
+  	color: rgb(0, 0, 0);
+  	margin-right: 20px;
+  	line-height: 1;
+}
+.sub_num .number {
+	font-size: 16px;
+	margin-right: 0;
+}
+.sub_num .number img {
+	margin-right: 3px;
+}
+
+.stoc_time {
+	font-size: 14px;
+  	font-weight: 500;  
+  	color: rgba(0, 0, 0, 0.7);
+} 
+
+
+/* 공시정보 */
+.stock_noti {
+	margin-top: 49px;
+	border-top: 1px solid #010101;
+}
+.stock_noti .noti_line {
+	display: flex;
+	border-bottom: 1px solid #e5e5e5;
+	padding: 63px 0;
+}
+.noti_line .stock_dt {
+	width: 258px;
+	text-align: center;
+	position: relative;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column;
+}
+.noti_line .stock_dt:before {
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	content: '';	
+	width: 1px;
+	height: 100px;
+	background: #0000;
+	opacity: 0.5;
+}
+.noti_line .stock_txt {
+	width: calc(100% - 258px);
+	padding: 0px 65px 0 80px;
+	display: flex;
+	justify-content: space-between;
+    align-items: center;
+}
+.stock_dt .st_day { 
+	font-size: 60.5px;
+  	font-weight: 500;
+    color: rgb(50, 106, 255);
+    display: block;
+    line-height: 1;
+}
+.stock_dt .st_year {
+	font-size: 18px;
+  	font-weight: normal;  
+  	letter-spacing: -0.54px;
+    color: rgb(50, 106, 255);	
+    line-height: 1;
+}
+.stock_txt .stoc_cont {
+	max-width: 646px;
+	width: 100%;
+}
+.stoc_cont .main_txt {
+	font-size: 22px;
+  	font-weight: bold;
+    color: rgb(0, 0, 0);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.stoc_cont .sub_txt {
+	word-break: keep-all;
+	font-size: 16px;
+  	font-weight: 300;
+  	color: rgba(0, 0, 0, 0.6);
+}
+
+.stock_txt .st_view {
+	cursor: pointer;
+	opacity: 0;
+	transition: 0.4s;
+}
+.stock_txt .st_view a {
+	display: inline-block;
+	  font-size: 16px;
+  font-weight: 500;
+    color: rgb(0, 0, 0);
+}
+.stock_txt .st_view span {
+	line-height: 1;
+	vertical-align: middle;
+}
+.stock_txt .st_view  img {
+	margin-left: 30px;
+}
+
+.noti_line:hover {
+	background: rgba(247, 247, 247, 0.5);
+}
+.noti_line:hover .st_view {
+	opacity: 1;
+}
+
+/* 공지사항 */
+.product.notice .section01 .prod_nm {
+	padding-bottom: 0;
+}
+.noti_wrap {
+	margin-top: 49px;
+}
+
+.noti_wrap table {
+	width: 100%;
+	table-layout: fixed;
+    border-collapse: collapse;
+	border-top: 1px solid #010101;
+}
+.noti_wrap td {
+	font-size: 18px;
+	font-weight: 500;
+	color: #000;
+	height: 100px;
+	text-align: center;
+	border-bottom: 1px solid #e5e5e5;
+	cursor: pointer;
+}
+.noti_wrap table tbody td:nth-child(2) {
+	text-align: left;
+	padding: 0 120px;
+}
+.noti_wrap .fixed_top td:nth-child(1) {
+	color: #326aff;
+	text-transform: uppercase;
+}
+.noti_wrap tr:hover {
+	background: rgba(247, 247, 247, 0.5);
+}
+.noti_wrap table tbody td:nth-child(2) span {
+	width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+}
+
+/* iframe */
+.iframe_bx {
+	position: relative; 
+	width: 100%; 
+	height: auto; 
+	padding-top: 67.25%;
+}
+.iframe_bx iframe {
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	width: 100%; 
+	height: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+/* 디자인 */
+.design .sec_design {
+	background: #f9f9f9;
+}
+
+.design .section01 .prod_nm {
+    margin-top: 100px;
+    padding-bottom: 110px;
+}
+
+.design .section01.sec_design .prod_nm {
+    padding-bottom: 0;
+}
+
+.product .section01.sec_design .prod_nm .txt_main {
+	padding: 0;
+}
+
+.design_wr {
+	margin-top: 110px;
+	margin-bottom: 110px;
+	display: flex;
+}
+.design_wr .des_l {
+	width: 54.27%;
+}
+.des_l .des_img {
+	border-radius: 30px;
+	overflow: hidden;
+}
+.des_l .des_img.fixed {
+	position: fixed;
+	top: 110px;
+	width: 54.27%;
+}
+.design_wr .des_r {
+	width: 45.73%;
+	padding-left: 80px;
+}
+.des_inner {
+	border-top: 1px solid #1b1b1b;	
+}
+.design_wr .des_txt {
+	padding: 90px 0;
+	position: relative;
+	border-bottom: 1px solid rgba(27, 27, 27, 0.1);
+	color: #000;
+
+}
+.design_wr .main_txt {
+	position: relative;
+}
+.des_bg {
+	position: absolute;
+	left: -40px;
+	top: 0;
+	font-size: 149px; 
+	letter-spacing: -7.45px;
+	color: rgba(231, 233, 235, 0.3);
+	text-transform: uppercase;
+    line-height: 0.68;
+    z-index: -3;
+    transition: 0.4s;
+}
+.design_wr .num {
+	font-size: 26.5px;
+  	font-weight: 500;
+  	display: inline-block;
+  	line-height: 1;
+  	position: relative;
+  	transition: 0.4s;
+}
+.design_wr .num:before {
+	position: absolute;
+	left: 1px;
+    bottom: -3px;
+	width: 100%;
+	height: 2px;
+	background: #000;
+	content: '';
+}
+.design_wr .title {
+	display: block;
+	line-height: 1;
+	font-size: 47.5px;
+	font-weight: 500;
+	color: #0b0b0b;
+	margin:  19px 0 59px;
+}
+.design_wr .des_txt.on .num {
+	color: #326aff;
+}
+.design_wr .des_txt.on .num:before {
+	background: #326aff;
+}
+.design_wr .des_txt.on .des_bg {
+	color: rgba(231, 233, 235, 0.9);
+}
+
+
+.sec_award {
+	/*padding-bottom: 108px;*/
+}
+.sec_award .txt_en {
+	font-size: 20.5px;
+  	font-weight: 500;
+  	color: rgb(0, 0, 0);
+  	letter-spacing: -0.21px;
+  	margin-top: 36px;
+  	line-height: 1.29;
+} 
+.sec_award .award_txt {
+	position: relative;
+} 
+.sec_award .award_txt:before {
+	content: 'award';
+	text-transform: uppercase;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 266.5px;
+	color: rgba(231, 233, 235, 0.2);
+	line-height: 0.87;
+ 	letter-spacing: -13.33px;
+ 	z-index: -5;
+} 
+.award_wrap {
+	margin-top: 125px;
+	padding-bottom: 250px;
+}
+.award_wrap .award_bx {
+	position: relative;
+	max-width: 542px;
+	width: 100%;
+	margin: 0 auto;
+}
+.award_bx .award_tit {
+	position: absolute;
+	display: inline-block;
+	top: -56px;
+    left: -215px;
+	text-transform: uppercase;
+	font-size: 100.5px;
+	letter-spacing: -6.03px;
+	color: rgb(11, 11, 11);
+	line-height: 1;
+    z-index: 9;
+}
+.award_img {
+	position: relative;
+}
+.award_img .award_ico {
+	position: absolute;
+	top: 20px;
+	right: 18px;
+}
+.award_num {
+	position: absolute;
+	left: 92.61%;
+	bottom: -40px;
+    width: 100%;	
+}
+.award_num .num_txt {
+	display: flex;
+	align-items: center;
+}
+.award_num .num {
+	font-size: 160px;
+	display: inline-block;
+	color: rgb(11, 11, 11);
+	line-height: 1;  
+	letter-spacing: -9.6px;
+}
+.award_num .txt {
+	font-size: 47.5px;
+	color: rgb(0, 0, 0);
+	line-height: 1;
+}
+.award_num .dw_bt {
+	margin-top: 30px;
+}
+.award_num .btn_view {
+	width: 231px;
+}
+.award_bx + .award_bx {
+	margin-top: 309px;
+}

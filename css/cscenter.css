@@ -1,0 +1,671 @@
+/* 1:1 문의하기 & as 신청하기 */
+.pagew.cs_center{
+	max-width:911px;
+	margin-top:100px;
+}
+.mypage .cs_center .content{
+	width:100%;
+}
+.cs_center .write_tit{
+	text-align:center;
+}
+.cs_center .write_tit h2{
+	font-size:46px;
+	font-weight:300;
+	margin-bottom:24px;
+}
+.cs_center .my_list .write_cont{
+	border-top:2px solid #111;
+}
+.write_btn{
+	text-align:center;
+	margin-top:68px;
+}
+button.prev{
+	width:245px;
+	height:65px;
+	line-height:65px;
+	border: solid 2px #326aff;
+	border-radius: 33px;
+	box-shadow: 2.4px 5.5px 22.3px 1.7px rgba(0, 0, 0, 0.03);
+	color:#326aff;
+	font-size:18px;
+	font-weight:bold;
+	background-color:#fff;
+	margin-right:5px;
+	cursor: pointer;
+}
+button.submit{
+	width:245px;
+	height:65px;
+	line-height:65px;
+	border: solid 2px #326aff;
+	border-radius: 33px;
+	box-shadow: 2.4px 5.5px 22.3px 1.7px rgba(0, 0, 0, 0.03);
+	color:#fff;
+	font-size:18px;
+	font-weight:bold;
+	background-color:#326aff;
+	cursor: pointer;
+}
+.cs_center .write_cont table tr.title input{
+	width:359px;
+}
+
+/* 1:1 문의하기 접수완료 */
+.cs_txt1{
+	font-size:22px;
+	font-weight:bold;
+	color:#326aff;
+	text-align:center;
+	line-height:29px;
+	margin-top:61px;
+	margin-bottom:21px;
+}
+.cs_txt2{
+	font-size:15px;
+	font-weight:300;
+	color:#474747;
+	text-align:center;
+	line-height:21px;
+}
+
+/* as 신청하기 접수완료 */
+.as_txt{
+	max-width:633px;
+	height:74px;
+	border-radius:37px;
+	background-color: #f8f8f8;
+	margin:0 auto;
+	font-size:15px;
+	margin-top:50px;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	margin-bottom:31px;
+	padding:0 30px;
+}
+span.as_date{
+	font-weight:500;
+	margin-right:15px;
+}
+span.as_date2{
+	font-weight:300;
+	color:#474747;
+}
+.as_date.as_email{
+	margin-left:50px;
+	position:relative;
+}
+.as_date.as_email::before{
+	content:'';
+	display:block;
+	clear:both;
+	width:2px;
+	height:14px;
+	background-color:#000;
+	opacity:0.2;
+	position:absolute;
+	left:-24px;
+	top:2px;
+}
+.my_list.cs_content .write_cont{
+	padding-bottom:89px;
+}
+
+
+
+/* 사업제안 */
+.cs_center .join_body .write_cont table .reply ul li {
+    margin-right: 45px;
+}
+
+.cs_center .join_body .write_cont .over_chk {
+    justify-content: left;
+}
+
+.cs_center .join_body .write_cont .bt_over_chk.border2 {
+	margin-left: 6px;
+}
+
+.cs_center .join_body .write_cont table input.full_input {
+	width: 565px;	
+}
+
+.my_list .biz_app.write_cont {
+	border-bottom: 0;	
+	margin-bottom: 60px;
+}
+
+.biz_agree {
+	padding-bottom: 60px;
+	border-bottom: solid 1px rgba(17, 17, 17,0.1);	
+}
+.biz_agree span {
+	 font-size: 20px;
+  	font-weight: bold;
+  	  color: rgb(0, 0, 0);
+  	  display: block;
+  	  border-bottom: 2px solid rgb(17, 17, 17);
+  	  margin-bottom: 19px;
+}
+
+.biz_agree .agree_txt {
+	 border: solid 1px rgb(224, 224, 224);
+	 height: 230px;
+	 overflow-y: auto;
+	 padding: 30px 22px 0;
+}
+.biz_agree .agree_txt > div {
+	word-break: keep-all;	
+}
+.biz_agree .reply {
+    justify-content: center;
+    margin-top: 15px;
+}
+.biz_agree .reply li:first-child {
+    margin-right: 60px;
+}
+
+/* 반응형 */
+
+@media only screen and (max-width: 767px){	
+	.my_list .select_div, .my_list .select_div .my_list .styledSelect {
+		width: 100%;
+	}
+	.cs_center .write_tit h2{
+		font-size:28px;
+	}
+	.cs_center .write_tit h3{
+		font-size:14px;
+	}
+	.pagew.cs_center.cs_write{
+		/* margin-top:75px; */
+	}
+	.pagew.cs_center .join_body {
+		margin-top: 0;
+	}
+	.my_list .write_cont table tr.content .tit {
+		margin-top: 0;
+	}
+	.my_list  .write_cont table tr td:first-child {
+	    width: 100%;
+	    display: block;
+	}
+	.my_list  .write_cont table tr td:last-child {
+	    width: 100%;
+	    display: block;	    
+	    padding: 5px 0 18px;
+	}
+	.my_list  .write_cont .input-file-box button {
+	    height: 40px;
+	    line-height: 38px;
+	    margin-left: 5px;
+	    font-size: 11px;
+	}	
+	.my_list .write_cont table .phone_wrap .select_div {
+	    width: 33.33%;
+	}
+	.my_list  .write_cont table .mail_wrap input.put_mail {
+	    display: block;
+	    width: 100%;
+	    margin-bottom: 7px;
+	}
+	
+	.my_list  .write_cont table .mail_wrap input.put_address {
+	    width: calc(100% - 118px);
+	}
+	
+	.my_list  .write_cont table .mail_wrap .select_div {
+ 	    width: 110px;
+    	padding: 0 13px 0;
+    	margin-left: 5px;
+    }    
+    
+    .my_list  .write_cont table .mail_wrap .dot {
+    	display: none;
+    }
+    .my_list  .write_cont table .reply td {
+	    height: auto;
+	}
+	
+	.my_list  .input-file, .cs_center .write_cont table tr.title input {
+	    width: 100%;
+	}
+	
+	.my_list  .write_cont table .reply ul li {
+	    margin-right: 20px !important;
+	}
+	
+	.my_list  .write_cont table tr.content textarea {
+	    border-radius: 15px;
+	    padding: 13px;
+	}
+	.my_list  .select_div ul {
+		border-radius: 15px;
+	}
+	
+	.my_list .write_cont table tr.title input {
+		width: 100%;
+	}
+	
+	.my_list  .join_body .write_cont table input.full_input {
+		width:100%;
+	}
+	
+	.biz_agree span {
+	    font-size: 14px;
+	}
+	.biz_agree .agree_txt > div {
+		font-size: 12px;
+	}
+	.biz_agree .agree_txt {
+	    padding: 15px 10px 0;
+	}
+	.my_list .biz_app.write_cont {
+	    border-bottom: 0;
+	    margin-bottom: 30px;
+	}
+	.biz_agree {
+    	padding-bottom: 30px;
+	}
+	.write_btn {
+	    text-align: center;
+	    margin-top: 30px;
+	}
+	.cs_center .mypage_wrap {
+	    padding-bottom: 100px;
+	}
+	.my_list .write_btn button.prev,
+	.my_list .write_btn button.submit {
+		width: 150px; 
+		height: 47px;
+		line-height: 43px;
+		font-size: 12px;
+	}
+	.my_list .input-file-box {
+		padding: 0;
+	}
+	.pagew.cs_center {
+	    margin-top: 50px;
+	}
+}
+@media only screen and (max-width: 570px){	
+	.cs_center .mypage_wrap{
+		padding-bottom:0;
+	}
+	.pagew.cs_center{
+		padding: 0 15px 115px;
+		margin-top:0;
+	}
+	.dis-no.vis-570 {
+		display: block !important;
+	}
+	.cs_center .write_tit h2{
+		font-size:28px;
+		margin-bottom:19px;
+	}
+	.cs_center .write_tit h3{
+		font-size:14px;
+		margin-bottom:33px;
+	}
+	.cs_center .as_txt{
+		padding:0 15px;
+		flex-flow:column;
+		height:65px;
+		margin-bottom:-13px;
+		margin-top:28px;
+	}
+	.cs_center .cs_txt1{
+		font-size:17px;
+		margin-top:19px;
+		line-height:25px;
+		margin-bottom:16px;
+	}
+	.cs_center .cs_txt2{
+		font-size:14px;
+	}
+	.cs_center .my_list .write_cont{
+		border-top:1px solid #111;
+	}
+	
+	.cs_center .as_date.as_email::before{
+		display:none;
+	}
+	.cs_center .as_date.as_email{
+		margin-left:0;
+	}
+	.cs_center span.as_date{
+		font-size:12px;
+	}
+	.cs_center span.as_date2{
+		font-size:12px;
+	}
+	
+/* 	.my_list .write_btn .prev {
+		margin-bottom: 5px;
+	}
+	
+	.my_list .write_btn .prev,
+	.my_list .write_btn .submit {
+		height:32px;
+		line-height:29px;
+		font-size:12px;
+		width:100%;
+	}
+	
+	.my_list .write_btn button.prev,
+	.my_list .write_btn button.submit {
+		font-size: 12px;
+	}
+	.my_list .write_btn{
+		margin-top:34px;
+	}
+	 */
+	.cs_com .my_list.cs_content .write_cont{
+		padding-bottom:38px;
+	}
+	
+	
+}
+
+	
+	
+/* 가이드 */
+.guide {
+	padding: 100px 0;
+}	
+	
+.guide .biz_agree {
+    padding-bottom: 0;
+    border-bottom: 0;
+}	
+	
+.guide .biz_agree .agree_txt {
+    height: 600px;
+}
+	
+	
+	
+	
+/*-----------대리점개설-----------*/	
+.product.store .section01 .prod_nm{
+	text-align:center;
+	padding-bottom:120px;
+}
+.product.store .store_box{
+	border-top:1px solid #e3e3e3;
+	padding: 100px;
+}
+.product.store .section02{
+	margin-top:0;
+}
+.store .store_pagew{
+	max-width:1244px;
+	margin:0 auto;
+	padding:0 15px;
+	width:100%;
+}
+.store .store_box .store_pagew{
+	display:flex;
+}	
+.store .store_txt01{
+	font-size: 15.5px;
+	letter-spacing: -0.93px;
+	color: #0b0b0b;
+	display: flex;
+    align-items: center;
+    margin-bottom:15px;
+}
+.store_tit .line{
+	width:128px;
+	height:1px;
+	background-color: rgba(13,13,13,0.5);
+	display: block;
+	margin:0 20px;
+}
+.store .store-r{
+	margin-left:130px;
+	display: flex;
+    align-items: center;
+}
+.store .store_txt02{
+	font-size: 47.5px;
+	font-weight: 500;
+	color: #000;
+	line-height: 1.35;
+	letter-spacing: -2.85px;
+	margin-bottom:22px;
+}
+.store .store_txt03{
+	font-size: 18px;
+	color: #919191;
+	line-height: 1.81;
+	letter-spacing: -0.9px;
+}
+.store .store_box.reverse .store_pagew{
+	flex-direction: row-reverse;
+}
+.store .store_box.reverse .store-r{
+	margin-right:130px;
+	margin-left:0;
+	text-align: right;
+}
+.store .store_box.reverse .store_txt01{
+	justify-content: end;
+}
+.store .section03{
+	text-align:center;
+}
+.store .consult_tit{
+	font-size: 46px;
+	font-weight: 500;
+	color: #000;
+	letter-spacing: -2.3px;
+}
+.store .consult_txt{
+	font-size: 18px;
+	color: #000;
+	letter-spacing: -0.54px;
+}
+.product.store{
+	padding:0px 0 103px;
+}
+.product.store .section01 .prod_nm .txt_main{
+	padding: 40px 0 38px;
+}
+
+
+
+/*-----------개설 조건 및 절차-----------*/	
+.consult .consult_cont{
+	display:flex;
+	border-top:1px solid #e3e3e3;
+	border-bottom:1px solid #e3e3e3;
+	/* height:480px; */
+}
+.consult .consult_cont .consult_box{	
+	width:25%;
+	border-right:1px solid #e3e3e3;
+	display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding:160px 0 157px;
+    position:relative;
+}
+.consult .consult_cont .consult_box:last-child{
+	border-right:none;	
+}
+.consult .consult_cont .consult_box:last-child::after{
+	background:none;
+}
+.consult .consult_cont .consult_box::after{
+	content:'';
+	display:block;
+	position:absolute;
+	right:-10%;
+	width:94px;
+	height:94px;
+	background:#fff url(/img/store/consult_arrow.png) no-repeat center center;
+}
+.consult .consult_num{
+	font-size: 15.5px;
+	font-weight: 300;
+	letter-spacing: -0.47px;
+	color: #0b0b0b;
+}
+.consult .consult_txt2{
+	font-size: 36px;
+	font-weight: 500;
+	letter-spacing: -2.7px;
+	color: #000;
+	margin-bottom:16px;
+	margin-top:24px;
+}
+.consult .consult_txt3{
+	font-size: 17px;
+	letter-spacing: -0.85px;
+	color: #919191;
+	line-height: 1.44;
+}
+.consult .section03 .sec03_tit{
+	font-size: 46.5px;
+	font-weight: 500;
+	color: #000;
+	line-height: 2.33;
+	letter-spacing: -2.33px;
+	text-align:center;
+	margin:92px 0 44px;
+}
+.consult .sec03_cont{
+	display:flex;
+	border:1px solid #e3e3e3;
+	flex-wrap: wrap;
+}
+.consult .sec03_box{
+	width:33.33%;
+	padding:144px 0 96px;
+	border-right:1px solid #e3e3e3;
+	transition:all .3s;
+	position:relative;
+}
+.consult .sec03_box:last-child{
+	border-right:none;
+}
+.consult .sec03{
+	width:100%;
+	display:flex;
+}
+.consult .sec03:first-child{
+	border-bottom:1px solid #e3e3e3;
+}
+.consult .sec03_txt01{
+	font-size: 24px;
+	font-weight: 500;
+	letter-spacing: -1.8px;
+	color: #000;
+	margin-top:60px;
+	margin-bottom:10px;
+}
+.consult .sec03_txt02{
+	font-size: 17px;
+	letter-spacing: -0.85px;
+	color: #919191;
+}
+.consult .sec03_box:hover{
+	background-color:#f9f9f9;
+}
+.consult .sec03_num{
+	background-color: #326aff;
+	width:76px;
+	height:76px;
+	position:absolute;
+	right:-1px;
+	top:0;
+	color:#fff;
+	font-size:24px;
+	font-weight:600;
+	letter-spacing: -0.72px;
+	line-height:76px;
+	text-align:center;
+}
+.product.store.consult{
+	padding:0 0 250px;
+}
+.consult_write .section02{
+	border-top:1px solid #e3e3e3;
+}
+.product.technology.store.consult_write .section02{
+	
+}
+.consult_write .pagew5 {
+    position: relative;
+    max-width: 911px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+.consult_write .sec02_tit{
+	font-size: 46.5px;
+  	font-weight: 300;
+  	letter-spacing: -2.33px;
+  	color: #000;
+  	text-align:center;
+  	margin-bottom:5px;
+  	margin-top:90px;
+}
+.consult_write .sec02_txt{
+	font-size: 18px;
+	letter-spacing: -0.54px;
+	color: #7d7d7d;
+	text-align:center;
+	margin-bottom:50px;
+}
+.consult_write .sec02_txt span{
+	font-weight: 500;
+	letter-spacing: -0.54px;
+	color: #326aff;
+}
+.consult_write .section02 .write_cont{
+	border-top:2px solid #111;
+	padding-top: 24px;
+	border-bottom: solid 1px rgba(17,17,17,0.1);
+	padding-bottom:130px;
+}
+.product.consult_write .section01 .prod_nm .txt_sub{
+	font-size:22px;
+	letter-spacing: -1.1px;
+	color: #000;
+}
+.consult_write .reply label{
+	font-size:16px;
+	color: #474747;
+	font-weight: normal;
+	letter-spacing: -0.4px;
+}
+.product.store.consult_write{
+	padding:0 0 250px;
+}
+.consult_write .star{
+	color: #326aff;
+	font-size: 16px;
+	font-weight: 500;
+}	
+.consult_write .write_cont table input, .consult_write .hack_info .flex_bx input{
+	width:235px;
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

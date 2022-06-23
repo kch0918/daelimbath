@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="/admin/cateMapper">
+	
+	<!-- 카테고리 조회 -->
+	<select id="getCateList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_cate where 1
+		<if test="isShow eq 'Y'.toString()">
+			and show_yn = '1'
+		</if>
+		order by sort
+	</select>
+	
+	<!-- 카테고리 대분류 조회 -->
+	<select id="getCatePar" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_cate where par = '0'
+	</select>
+	
+	<!-- 카테고리 count  -->
+	<select id="isInCate" parameterType="hashmap" resultType="int">
+		select count(*) as cnt from tbl_cate where idx = '${idx}'
+	</select>
+	
+	<!-- 카테고리 추가 -->
+	<insert id="insCate" parameterType="hashmap">
+		insert into tbl_cate
+			set 
+				idx		 	=   '${idx}',
+				dep		 	= 	'${dep}',
+				par 	 	= 	'${par}',
+				cate_nm  	= 	'${cate_nm}',
+				show_yn   	= 	'${show_yn}',
+				chmod 	 	= 	'${chmod}',
+				sort 		= 	'${sort}',
+				submit_date = now()+0
+	</insert>
+	
+	<!-- 카테고리 수정 -->
+	<update id="upCate" parameterType="hashmap">
+		update tbl_cate
+			set 
+			dep		 = 	'${dep}',
+			par 	 = 	'${par}',
+			cate_nm  = 	'${cate_nm}',
+			show_yn  = 	'${show_yn}',
+			chmod 	 = 	'${chmod}',
+			sort 	 = 	'${sort}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 카테고리 삭제 -->
+	<delete id="delCate" parameterType="hashmap">
+		delete from tbl_cate where idx = '${idx}'
+	</delete>
+</mapper>

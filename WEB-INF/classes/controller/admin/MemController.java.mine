@@ -1,0 +1,459 @@
+package controller.admin;
+
+import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
+import classes.Utils;
+import model.admin.MemDAO;
+import net.sf.json.JSONArray;
+
+@Controller
+@RequestMapping("/admin/member/*")
+public class MemController {
+	
+	private final Logger log = Logger.getLogger(this.getClass());
+
+	@Autowired
+	private MemDAO member_dao;
+	
+	// 회원 리스트
+	@RequestMapping("/member_list")
+	public ModelAndView member_list(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/member_list");
+		
+		return mav;
+	}
+	
+	// 회원 전체 조회
+	@RequestMapping("/getMemList")
+	@ResponseBody
+	public HashMap<String, Object> getMemList(HttpServletRequest request) {
+		
+		String order_by    =  Utils.checkNullString(request.getParameter("order_by"));
+		String search_name =  Utils.checkNullString(request.getParameter("search_name"));
+		String join_type   =  Utils.checkNullString(request.getParameter("join_type"));
+		String start_date  =  Utils.checkNullString(request.getParameter("start_date"));
+		String finish_date =  Utils.checkNullString(request.getParameter("finish_date"));
+		
+		List<HashMap<String, Object>> listCnt = member_dao.getMemCount(search_name, join_type, start_date, finish_date);
+		List<HashMap<String, Object>> listCnt_all = member_dao.getMemCount("", "", "19000101", "30000101");
+		int listCount = Utils.checkNullInt(listCnt.get(0).get("CNT"));
+		int page = 1;
+		if(!"".equals(Utils.checkNullString(request.getParameter("page"))))
+		{
+			page = Integer.parseInt(Utils.checkNullString(request.getParameter("page")));
+		}
+		int listSize = 10;
+		if(!"".equals(Utils.checkNullString(request.getParameter("listSize"))))
+		{
+			listSize = Integer.parseInt(Utils.checkNullString(request.getParameter("listSize")));
+		}
+		
+		int block = 5;
+		int pageNum = (int)Math.ceil((double)listCount/listSize);
+		int nowBlock = (int)Math.ceil((double)page/block);
+		int s_page = (nowBlock * block) - (block-1);
+		if (s_page <= 1) 
+		{
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+		if (pageNum <= e_page) {
+			e_page = pageNum;
+		}
+		
+		int s_point = (page-1) * listSize;
+		
+		List<HashMap<String, Object>> list = member_dao.getMemList(s_point, listSize, order_by, search_name, join_type, start_date, finish_date); 
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("listCnt", listCnt.get(0).get("CNT"));
+		map.put("listCnt_all", listCnt_all.get(0).get("CNT"));
+		map.put("list", list);
+		map.put("page", page);
+		map.put("s_page", s_page);
+		map.put("e_page", e_page);
+		map.put("pageNum", pageNum);
+		map.put("order_by", order_by);
+		
+		return map;
+	}	
+	
+	// 탈퇴 회원 전체 조회
+	@RequestMapping("/getMemDrophList")
+	@ResponseBody
+	public HashMap<String, Object> getMemDrophList(HttpServletRequest request) {
+		
+		String order_by    =  Utils.checkNullString(request.getParameter("order_by"));
+		String search_name =  Utils.checkNullString(request.getParameter("search_name"));
+		String join_type   =  Utils.checkNullString(request.getParameter("join_type"));
+		String start_date  =  Utils.checkNullString(request.getParameter("start_date"));
+		String finish_date =  Utils.checkNullString(request.getParameter("finish_date"));
+		
+		List<HashMap<String, Object>> listCnt = member_dao.getMemDropCount(search_name, join_type, start_date, finish_date);
+		List<HashMap<String, Object>> listCnt_all = member_dao.getMemDropCount("", "", "19000101", "30000101");
+		int listCount = Utils.checkNullInt(listCnt.get(0).get("CNT"));
+		int page = 1;
+		if(!"".equals(Utils.checkNullString(request.getParameter("page"))))
+		{
+			page = Integer.parseInt(Utils.checkNullString(request.getParameter("page")));
+		}
+		int listSize = 10;
+		if(!"".equals(Utils.checkNullString(request.getParameter("listSize"))))
+		{
+			listSize = Integer.parseInt(Utils.checkNullString(request.getParameter("listSize")));
+		}
+		
+		int block = 5;
+		int pageNum = (int)Math.ceil((double)listCount/listSize);
+		int nowBlock = (int)Math.ceil((double)page/block);
+		int s_page = (nowBlock * block) - (block-1);
+		if (s_page <= 1) 
+		{
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+		if (pageNum <= e_page) {
+			e_page = pageNum;
+		}
+		
+		int s_point = (page-1) * listSize;
+		
+		List<HashMap<String, Object>> list = member_dao.getMemDrophList(s_point, listSize, order_by, search_name, join_type, start_date, finish_date); 
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("listCnt", listCnt.get(0).get("CNT"));
+		map.put("listCnt_all", listCnt_all.get(0).get("CNT"));
+		map.put("list", list);
+		map.put("page", page);
+		map.put("s_page", s_page);
+		map.put("e_page", e_page);
+		map.put("pageNum", pageNum);
+		map.put("order_by", order_by);
+		
+		return map;
+	}	
+	
+	// 기업회원 승인 전체 조회
+	@RequestMapping("/getCorpPerList")
+	@ResponseBody
+	public HashMap<String, Object> getCorpPerList(HttpServletRequest request) {
+		
+		String order_by    =  Utils.checkNullString(request.getParameter("order_by"));
+		String search_name =  Utils.checkNullString(request.getParameter("search_name"));
+		String per_type   =  Utils.checkNullString(request.getParameter("per_type"));
+		String start_date  =  Utils.checkNullString(request.getParameter("start_date"));
+		String finish_date =  Utils.checkNullString(request.getParameter("finish_date"));
+		
+		List<HashMap<String, Object>> listCnt = member_dao.getCorpPerCount(search_name, per_type, start_date, finish_date);
+		List<HashMap<String, Object>> listCnt_all = member_dao.getCorpPerCount("", "", "19000101", "30000101");
+		int listCount = Utils.checkNullInt(listCnt.get(0).get("CNT"));
+		int page = 1;
+		if(!"".equals(Utils.checkNullString(request.getParameter("page"))))
+		{
+			page = Integer.parseInt(Utils.checkNullString(request.getParameter("page")));
+		}
+		int listSize = 10;
+		if(!"".equals(Utils.checkNullString(request.getParameter("listSize"))))
+		{
+			listSize = Integer.parseInt(Utils.checkNullString(request.getParameter("listSize")));
+		}
+		
+		int block = 5;
+		int pageNum = (int)Math.ceil((double)listCount/listSize);
+		int nowBlock = (int)Math.ceil((double)page/block);
+		int s_page = (nowBlock * block) - (block-1);
+		if (s_page <= 1) 
+		{
+			s_page = 1;
+		}
+		int e_page = nowBlock*block;
+		if (pageNum <= e_page) {
+			e_page = pageNum;
+		}
+		
+		int s_point = (page-1) * listSize;
+		
+		List<HashMap<String, Object>> list = member_dao.getCorpPerList(s_point, listSize, order_by, search_name, per_type, start_date, finish_date); 
+		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("listCnt", listCnt.get(0).get("CNT"));
+		map.put("listCnt_all", listCnt_all.get(0).get("CNT"));
+		map.put("list", list);
+		map.put("page", page);
+		map.put("s_page", s_page);
+		map.put("e_page", e_page);
+		map.put("pageNum", pageNum);
+		map.put("order_by", order_by);
+		
+		return map;
+	}	
+
+	// 가입 승인 관리
+	@RequestMapping("/member_approve")
+	public ModelAndView member_approve(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/member_approve");
+		
+		return mav;
+	}
+	
+	// 회원 수정
+	@RequestMapping("/member_edit")
+	public ModelAndView member_edit(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/member_edit");
+		
+		String idx = Utils.checkNullString(request.getParameter("idx"));
+		HashMap<String, Object> data = member_dao.getMemberOne(idx);
+
+		mav.addObject("data", data);
+		
+		
+		return mav;
+	}
+	
+	// 회원 수정 실행
+	@RequestMapping("/member_edit_proc")
+	public ModelAndView member_edit_proc(HttpServletRequest request) throws NoSuchAlgorithmException {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/member_edit_proc");
+		
+		try
+		{
+		
+			int idx = Utils.checkNullInt(request.getParameter("idx"));
+			String join_type = Utils.checkNullString(request.getParameter("join_type"));
+			String per_type = Utils.checkNullString(request.getParameter("per_type"));
+			String pw = Utils.sha256(Utils.checkNullString(request.getParameter("pw")));
+			String corp = Utils.checkNullString(request.getParameter("corp"));
+			String email = Utils.checkNullString(request.getParameter("email"));
+			String tel = Utils.checkNullString(request.getParameter("tel"));
+			String addr1 = Utils.checkNullString(request.getParameter("addr1"));
+			String addr2 = Utils.checkNullString(request.getParameter("addr2"));
+			String addr3 = Utils.checkNullString(request.getParameter("addr3"));
+		
+			if(idx > 0) 
+			{
+				member_dao.getMemberEdit(join_type,per_type,pw,corp,email,tel,addr1,addr2,addr3,idx);
+			}
+			
+			mav.addObject("isSuc", "success");
+			mav.addObject("msg", "저장되었습니다.");
+			
+		}
+		catch(Exception e)
+		{
+			mav.addObject("isSuc", "fail");
+			mav.addObject("msg", "알 수 없는 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return mav;
+	}
+	
+	// 회원 수정
+	@RequestMapping("/drop_member_edit")
+	public ModelAndView drop_member_edit(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/drop_member_edit");
+		
+		String idx = Utils.checkNullString(request.getParameter("idx"));
+		HashMap<String, Object> data = member_dao.getMemberOne(idx);
+
+		mav.addObject("data", data);
+		
+		
+		return mav;
+	}
+	
+	// 회원 정책
+	@RequestMapping("/member_policy")
+	public ModelAndView member_policy(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/member_policy");
+		
+		HashMap<String, Object> list = member_dao.getPolicyList();
+		mav.addObject("list", list);
+		
+	
+		return mav;
+	}	
+	
+	// 회원 탈퇴리스트
+	@RequestMapping("/member_withdraw")
+	public ModelAndView member_withdraw(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/member_withdraw");
+		
+		return mav;
+	}	
+	
+	// 회원리스트 회원탈퇴
+	@RequestMapping("/delMemList")
+	@ResponseBody
+	public HashMap<String, Object> delMemList(HttpServletRequest request) {
+		
+		String idx = Utils.checkNullString(request.getParameter("idx"));
+		
+		if(!"".equals(idx))
+		{
+			idx = idx.substring(0, idx.length()-1);
+		}
+		
+		HashMap<String, Object> map = new HashMap<>();
+		try
+		{
+			int cnt = member_dao.delMemList(idx);
+			if(cnt == 0)
+			{
+				map.put("isSuc", "fail");
+				map.put("msg", "알 수 없는 오류 발생");
+			} 
+			else 
+			{
+				map.put("isSuc", "success");
+				map.put("msg", "탈퇴되었습니다.");
+			}
+		}
+		catch(Exception e)
+		{
+			map.put("isSuc", "fail");
+			map.put("msg", "알 수 없는 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return map;
+	}
+	
+	// 기업회원 승인관리
+	@RequestMapping("/getPerType")
+	@ResponseBody
+	public HashMap<String, Object> getPerType(HttpServletRequest request) {
+		
+		String idx 		=  Utils.checkNullString(request.getParameter("idx"));
+		String per_type =  Utils.checkNullString(request.getParameter("per_type"));
+		
+		if(!"".equals(idx))
+		{
+			idx = idx.substring(0, idx.length()-1);
+		}
+		
+		HashMap<String, Object> map = new HashMap<>();
+		try
+		{
+			int cnt = member_dao.getPerType(per_type,idx);
+			if(cnt == 0)
+			{
+				map.put("isSuc", "fail");
+				map.put("msg", "알 수 없는 오류 발생");
+			} 
+			else 
+			{
+				map.put("isSuc", "success");
+				map.put("msg", "처리되었습니다.");
+			}
+		}
+		catch(Exception e)
+		{
+			map.put("isSuc", "fail");
+			map.put("msg", "알 수 없는 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return map;
+	}
+	
+	// 상품등록 저장
+	@RequestMapping("/member_policy_proc")
+	public ModelAndView member_policy_proc(HttpServletRequest request) throws IOException {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/member_policy_proc");
+			
+		try
+		{	
+			List<HashMap<String, Object>> listCnt = member_dao.getPolicyCount();
+			int listCount = Utils.checkNullInt(listCnt.get(0).get("CNT"));
+			
+			HashMap<String, Object> map = new HashMap<>();
+			
+			map.put("terms",  Utils.repWord(Utils.checkNullString(request.getParameter("terms"))));
+			map.put("policy", Utils.repWord(Utils.checkNullString(request.getParameter("policy"))));
+			map.put("info_agree",Utils.repWord(Utils.checkNullString(request.getParameter("info_agree"))));
+			
+			
+			member_dao.insPolicy(map);
+			
+			System.out.println("member_policy_proc map : " + map);
+			System.out.println("member_policy_proc mav : " + mav);
+			
+	
+			
+			mav.addObject("isSuc", "success");
+			mav.addObject("msg", "저장되었습니다.");
+		}
+		catch(Exception e)
+		{
+			mav.addObject("isSuc", "fail");
+			mav.addObject("msg", "알 수 없는 오류 발생");
+			e.printStackTrace();
+		}
+		
+		return mav;
+	}
+	
+	// 회원 정책 버튼 리스트
+	@RequestMapping("/terms_list")
+	public ModelAndView member_terms_list(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/member_terms_list");
+		
+		List<HashMap<String, Object>> list = member_dao.getTermsAllList();
+		mav.addObject("list", list);
+		
+		return mav;
+	}
+	
+	// 회원 정책 버튼 리스트
+	@RequestMapping("/policy_list")
+	public ModelAndView member_policy_list(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/member_policy_list");
+		
+		List<HashMap<String, Object>> list = member_dao.getPolicyAllList();
+		mav.addObject("list", list);
+	
+		return mav;
+	}
+
+	// 회원 정책 버튼 리스트
+	@RequestMapping("/info_agree_list")
+	public ModelAndView member_info_agree_list(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/WEB-INF/pages/admin/member/member_info_agree_list");
+		
+		List<HashMap<String, Object>> list = member_dao.getInfoAgreeAllList();
+		mav.addObject("list", list);
+	
+		return mav;
+	}
+	
+}

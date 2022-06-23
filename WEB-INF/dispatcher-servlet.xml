@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+	
+	xmlns:task="http://www.springframework.org/schema/task"
+	
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd  
+		
+		
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+		
+
+    <task:annotation-driven/>
+		
+	<!-- <context:component-scan base-package="com.lge.*" /> -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations" value="/WEB-INF/config/system.properties"></property>
+	</bean>
+	
+	<!-- WEB main -->
+	<bean class="controller.MainController"/>
+	
+	<!-- WEB MEMBER  -->
+	<bean class="controller.MemberController"/>
+	
+	<!-- WEB cscenter  -->
+	<bean class="controller.CscenterController"/>
+	
+	<!-- WEB cscenter  -->
+	<bean class="controller.MagazineController"/>
+
+	<!-- WEB product -->
+	<bean class="controller.ProductController"/>
+	
+	<!-- WEB brand -->
+	<bean class="controller.BrandController"/>
+	
+	<!-- WEB remomel -->
+	<bean class="controller.RemomelController"/>
+	
+	<!-- WEB download -->
+	<bean class="controller.DownloadController"/>
+	
+	<!-- ADMIN main -->
+	<bean class="controller.admin.MainController"/>
+	
+	<!-- ADMIN product -->
+	<bean class="controller.admin.ProController"/>
+	
+	<!-- ADMIN cate -->
+	<bean class="controller.admin.CateController"/>
+	
+	<!-- ADMIN user -->
+	<bean class="controller.admin.UserController"/>
+	
+	<!-- ADMIN member -->
+	<bean class="controller.admin.MemController"/>
+	
+	<!-- ADMIN board -->
+	<bean class="controller.admin.BoardController"/>
+	
+	<!-- ADMIN DAO -->
+	<bean class="model.admin.CateDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- Main DAO -->
+	<bean class="model.admin.MainDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- Pro DAO -->
+	<bean class="model.admin.ProDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- User DAO -->
+	<bean class="model.admin.UserDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>	
+	
+	<!-- Mem DAO -->
+	<bean class="model.admin.MemDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>	
+	
+	<!-- Board DAO -->
+	<bean class="model.admin.BoardDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- WEB Product DAO -->
+	<bean class="model.web.ProductDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- WEB Member DAO -->
+	<bean class="model.web.MemberDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- WEB Product DAO -->
+	<bean class="model.web.MainDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- WEB Product DAO -->
+	<bean class="model.web.CsDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<!-- WEB Down DAO -->
+	<bean class="model.web.DownDAO">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean id="beanNameViewResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0" />
+	</bean>
+	
+	<mvc:annotation-driven />
+	
+	<context:annotation-config />
+
+</beans>
+
+

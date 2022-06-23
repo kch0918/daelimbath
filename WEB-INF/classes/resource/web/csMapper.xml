@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="/web/csMapper">
+
+	<!-- Cs  -->
+	<insert id="insCs" parameterType="hashmap">
+		INSERT INTO tbl_ascs
+			(
+		 	   type,	      cate,			  type_cd,			pro_cd,				title,				contents, 				re_sms,				re_mail,			       	 	
+		 	   file, 		  phone, 		  file_yn,			email,		    	member_id,			member_idx,				answer_yn,			submit_date
+			 )
+		values
+			(
+			  '${type}',	 '${cate}',	 	 '${type_cd}',	   '${pro_cd}',	  	   '${title}',	 	    '${contents}',			'${re_sms}',  	 	'${re_mail}',	       	
+			  '${file}',     '${phone}',	 '${file_yn}',	   '${email}',	       '${member_id}',		'${member_idx}',		'진행중',  	 		 now()+0
+			)
+	</insert>
+	
+	<!-- Biz  -->
+	<insert id="insBiz" parameterType="hashmap">
+		INSERT INTO tbl_biz
+			(
+		 	   doc_type,		 corp_nm,		 	 phone,			 email, 		 member_idx,			addr1,		
+		 	   addr2,			 addr3, 		 	 title, 	     contents,    	 submit_date
+			 )
+		values
+			(
+			  '${doc_type}', 	'${corp_nm}',	 	'${phone}',	  	'${email}',		 '${member_idx}', 		'${addr1}',		
+			  '${addr2}',		'${addr3}', 		'${title}',		'${contents}',	  now() + 0	
+			)
+	</insert>
+</mapper>

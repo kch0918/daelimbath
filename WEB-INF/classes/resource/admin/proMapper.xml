@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="/admin/proMapper">
+	
+	<!-- 상품 목록 -->
+	<select id="getProList" parameterType="hashmap" resultType="hashmap">
+		select a.pro_nm, a.pro_img, a.submit_date, b.cate_nm from tbl_product a,tbl_cate b
+		where a.big_cate = b.idx
+		<if test="!search_name.equals('')">
+			AND pro_nm LIKE '%${search_name}%'
+		</if> 
+		<if test="!big_cate.equals('')">
+			AND cate_nm LIKE '${big_cate}'
+		</if> 
+		AND a.submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+		order by a.submit_date desc
+		limit #{s_rownum}, #{e_rownum}
+	</select>
+	
+	<!-- 카테고리 다음 텝스 찾기 -->
+	<select id="getNextCate" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_cate where par = '${idx}' order by sort
+	</select>
+	
+	<!-- 단일조회 -->
+	<select id="getOneProList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_product where idx = '${idx}'
+	</select>
+	
+	<!-- 파일 단일조회 -->
+	<select id="getOneFileList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_product where idx = '${idx}'
+	</select>
+	
+	<!-- 상품 등록 -->
+	<insert id="insProduct" parameterType="hashmap">
+	INSERT INTO tbl_product 
+			(
+		 	   cate,			 		  big_cate,					 pro_nm, 			     	 pro_key, 		       	 	 pro_spec, 			      down_yn,			      pro_logo, 				 
+		 	   img_down, 				  cad_down,				     const_down,				 test_down,  		  	   	 env_down, 				  use_down, 	
+		 	   post_down,				  pro_no,					 pro_brand,				 	 pro_ks,					 pro_size, 				  pro_vol, 	  	 		  
+		 	   pro_col,					  pro_etc,			 		 pro_opt,	    		   	 list_img,					 list_img_ori,			  pro_img,	 	      		   
+		 	   mapp_yn,		  	          mapp_pro, 			 	 pro_sh_desc,    	         pro_desc,	 			     submit_date,
+		 	   bestproexpo_yn,			  newproexpo_yn
+			 )
+		values
+			(
+			  '${cate}', 			 	 '${big_cate}',				 '${pro_nm}',	 	     	 '${pro_key}',          	'${pro_spec}',     		 '${down_yn}',			  '${pro_logo}',    		
+			  '${img_down}', 			 '${cad_down}',	     	     '${const_down}',	 	     '${test_down}',	      	'${env_down}', 			 '${use_down}',  
+			  '${post_down}',			 '${pro_no}', 				 '${pro_brand}',	     	 '${pro_ks}',	 	    	'${pro_size}',	      	 '${pro_vol}', 			 
+			  '${pro_col}',        	 	 '${pro_etc}',   	     	 '${pro_opt}',	      	   	 '${list_img}', 		    '${list_img_ori}',		 '${pro_img}',	   
+			  '${mapp_yn}',    	         '${mapp_pro}',   	  		 '${pro_sh_desc}',	 		 '${pro_desc}',				  now()+0,
+			  '${bestproexpo_yn}',    	 '${newproexpo_yn}'
+			)
+	</insert>
+	
+	<!-- 상품 수정 -->
+	<update id="upProduct" parameterType="hashmap">
+		UPDATE tbl_product set
+			cate 				= 	'${cate}',
+			big_cate 			= 	'${big_cate}',
+			pro_nm 		    	= 	'${pro_nm}',
+			pro_key   		    = 	'${pro_key}',
+			pro_spec 		    = 	'${pro_spec}',
+			down_yn				=   '${down_yn}',
+			pro_logo 			= 	'${pro_logo}',
+			img_down 		    = 	'${img_down}',
+			cad_down 			= 	'${cad_down}',
+			const_down  	  	= 	'${const_down}', 
+			test_down 		    = 	'${test_down}',
+			env_down 	  		= 	'${env_down}',
+			use_down 		    = 	'${use_down}',
+			post_down 		    = 	'${post_down}',
+			pro_no 		   	    = 	'${pro_no}',
+			pro_brand   	   	= 	'${pro_brand}',
+			pro_ks 	 			= 	'${pro_ks}',
+			pro_size 		    = 	'${pro_size}',
+			pro_vol 	 		= 	'${pro_vol}',
+			pro_col   	   		= 	'${pro_col}',
+			pro_etc 	 		= 	'${pro_etc}',
+			pro_opt   	   		= 	'${pro_opt}',
+			list_img 		    = 	'${list_img}',
+			list_img_ori 	    = 	'${list_img_ori}',
+			pro_img 	  		= 	'${pro_img}',
+			mapp_yn      		= 	'${mapp_yn}',
+			mapp_pro    		= 	'${mapp_pro}',
+			pro_sh_desc   		= 	'${pro_sh_desc}',
+			pro_desc     		= 	'${pro_desc}',
+			bestproexpo_yn 		= 	'${bestproexpo_yn}',
+			newproexpo_yn 		= 	'${newproexpo_yn}'
+		where
+			idx = '${idx}'
+	</update>
+	
+	<!-- 상품 갯수 -->
+	<select id="getProCount" parameterType="hashmap" resultType="hashmap">
+		select count(*) as CNT from tbl_product where 1
+			<if test="!search_name.equals('')">
+			AND pro_nm LIKE '%${search_name}%'
+		</if> 
+		AND submit_date BETWEEN '${start_date}000000' and '${finish_date}999999'
+	</select>
+	
+	<!-- 상품 삭제 -->
+	<delete id="delProList" parameterType="hashmap">
+		delete from tbl_product where idx in (${idx})
+	</delete>
+	
+	<!-- 팝업 등록상품 리스트 -->
+	<select id="getPopList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_product where idx in (${idx}) order by submit_date desc
+	</select>
+	
+	<!-- 관련제품 등록상품 리스트 -->
+	<select id="getProMappList" parameterType="hashmap" resultType="hashmap">
+		select * from tbl_product where idx in (${idx}) order by submit_date desc
+	</select>
+	
+	<select id="getNewsFileName" parameterType="hashmap" resultType="hashmap">
+		select list_img, list_img_ori from tbl_product where idx = '${idx}'
+	</select>
+</mapper>
